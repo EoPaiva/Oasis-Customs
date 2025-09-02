@@ -13,9 +13,7 @@ Uma calculadora interativa e estilizada para auxiliar no cálculo de serviços d
   - Serviços internos (reparo, pneus, atendimento externo)
   - Vendas (kit, pneu, nitro, chave)
 - ✔️ Desconto automático de parceria (30%) em kits e pneus
-- 💰 Cálculo do **repasse de 10%** (somente sobre itens de venda)
-- ➕ Acumulador de repasses (permite somar múltiplos valores)
-- 🔄 Botão de "Zerar Calculadora" (não afeta o acumulado de repasse)
+- 🔄 Botão de "Zerar Calculadora"
 - Interface visual futurista com fonte Orbitron e animações CSS
 - Totalização formatada em `pt-BR` com `R$`
 
@@ -23,7 +21,7 @@ Uma calculadora interativa e estilizada para auxiliar no cálculo de serviços d
 
 ## 🖼️ Preview
 
-![Screenshot](https://user-images.githubusercontent.com/your-screenshot-path/oasis-tuning-preview.png)
+![Screenshot](https://imgur.com/a/0Ui2FRP)
 
 ---
 
