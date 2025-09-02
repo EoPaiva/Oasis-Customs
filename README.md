@@ -21,7 +21,7 @@ Uma calculadora interativa e estilizada para auxiliar no cálculo de serviços d
 
 ## 🖼️ Preview
 
-![Preview](https://i.imgur.com/Fx9JX2B.png)
+![Preview](https://i.imgur.com/Fx9JX2B)
 
 ---
 
