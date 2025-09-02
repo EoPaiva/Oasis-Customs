@@ -14,17 +14,16 @@ const valores = {
   'chk-externo': 700,
   'chk-kitdrift': 15000,
   'chk-rastreador': 15000
-}
+};
+
 const custos = {
   'full-blindagem': 49600,
   'full-sem': 35600,
-
   'sel-motor': 8150,
   'sel-freio': 7150,
   'sel-transmissao': 7150,
   'sel-suspensao': 8150,
   'sel-blindagem': 14000,
-
   'chk-turbo': 5000,
   'chk-tint': 350,
   'chk-head': 350,
@@ -35,7 +34,6 @@ const custos = {
   'chk-plate': 563,
   'chk-kitdrift': 10000,
   'chk-rastreador': 10000,
-
   'rng-respray': 700,
   'rng-neon': 350,
   'rng-cosmetic': 1050
@@ -44,6 +42,8 @@ const custos = {
 let counters = {
   reparo: 0, pneu: 0, nitro: 0, kit: 0, pneuVend: 0, chave: 0
 };
+
+let acumuladoRepasse = 0;
 
 function updateItem(item, value) {
   counters[item] += value;
@@ -61,7 +61,6 @@ function updateAll() {
     if (checkbox && checkbox.checked) total += valores[id];
   }
 
-  // Descontos
   const parceria = document.getElementById("chk-parceria").checked;
 
   total += parseInt(document.getElementById("sel-motor").value);
@@ -70,7 +69,6 @@ function updateAll() {
   total += parseInt(document.getElementById("sel-suspensao").value);
   total += parseInt(document.getElementById("sel-blindagem").value);
 
-  // Range sliders
   total += document.getElementById("rng-cosmetic").value * 1200;
   document.getElementById("val-cosmetic").textContent = document.getElementById("rng-cosmetic").value;
   total += document.getElementById("rng-respray").value * 1000;
@@ -78,17 +76,33 @@ function updateAll() {
   total += document.getElementById("rng-neon").value * 700;
   document.getElementById("val-neon").textContent = document.getElementById("rng-neon").value;
 
-  // Internos
   total += counters.reparo * 550;
   total += counters.pneu * 450;
 
-  // Vendas
   total += counters.nitro * 8000;
   total += counters.kit * (parceria ? 455 : 650);
   total += counters.pneuVend * (parceria ? 332.5 : 475);
   total += counters.chave * 500;
 
-  document.getElementById("totalDisplay").textContent = `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+  document.getElementById("totalDisplay").textContent =
+    `R$ ${total.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+
+  // REPASSE (somente sobre vendas)
+  const repasseCheckbox = document.getElementById("chk-repasse");
+  const repasseDiv = document.getElementById("repasseDisplay");
+
+  if (repasseCheckbox.checked) {
+    const valorKit = counters.kit * (parceria ? 455 : 650);
+    const valorPneu = counters.pneuVend * (parceria ? 332.5 : 475);
+    const valorNitro = counters.nitro * 8000;
+    const somaRepassavel = valorKit + valorPneu + valorNitro;
+    const valorRepasse = somaRepassavel * 0.10;
+
+    repasseDiv.style.display = "block";
+    repasseDiv.textContent = `Repassar (10% sobre vendas): R$ ${valorRepasse.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+  } else {
+    repasseDiv.style.display = "none";
+  }
 }
 
 function resetAll() {
@@ -111,13 +125,27 @@ function resetAll() {
   updateAll();
 }
 
+function acumularRepasse() {
+  const parceria = document.getElementById("chk-parceria").checked;
+
+  const valorKit = counters.kit * (parceria ? 455 : 650);
+  const valorPneu = counters.pneuVend * (parceria ? 332.5 : 475);
+  const valorNitro = counters.nitro * 8000;
+
+  const somaRepassavel = valorKit + valorPneu + valorNitro;
+  const valorRepasse = somaRepassavel * 0.10;
+
+  acumuladoRepasse += valorRepasse;
+
+  document.getElementById("repasseAcumuladoDisplay").textContent =
+    `Acumulado de repasse: R$ ${acumuladoRepasse.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}`;
+}
+
 // Inicialização
 document.addEventListener("DOMContentLoaded", () => {
   updateAll();
-
-  // Atualiza a cada mudança nos inputs
   document.querySelectorAll("input, select").forEach(el => {
     el.addEventListener("input", updateAll);
   });
+  document.getElementById("chk-repasse").addEventListener("change", updateAll);
 });
-
