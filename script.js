@@ -106,23 +106,42 @@ function updateAll() {
 }
 
 function resetAll() {
-  for (const id in valores) document.getElementById(id).checked = false;
-
-  ['sel-motor', 'sel-freio', 'sel-transmissao', 'sel-suspensao', 'sel-blindagem'].forEach(id => {
-    document.getElementById(id).value = "0";
-  });
-
-  ['rng-cosmetic', 'rng-respray', 'rng-neon'].forEach(id => {
-    document.getElementById(id).value = 0;
-  });
-
-  for (const key in counters) {
-    counters[key] = 0;
-    document.getElementById(`cnt-${key}`).textContent = "0";
+  // Desmarca todos os checkboxes
+  for (const id in valores) {
+    const el = document.getElementById(id);
+    if (el) el.checked = false;
   }
 
+  // Reseta selects
+  ['sel-motor', 'sel-freio', 'sel-transmissao', 'sel-suspensao', 'sel-blindagem']
+    .forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "0";
+    });
+
+  // Reseta sliders
+  ['rng-cosmetic', 'rng-respray', 'rng-neon'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = 0;
+    document.getElementById(`val-${id.split('-')[1]}`).textContent = "0";
+  });
+
+  // Reseta counters
+  for (const key in counters) {
+    counters[key] = 0;
+    const el = document.getElementById(`cnt-${key}`);
+    if (el) el.textContent = "0";
+  }
+
+  // Desmarca opções especiais
   document.getElementById("chk-parceria").checked = false;
-  updateAll();
+  document.getElementById("chk-repasse").checked = false;
+
+  // Zera valores exibidos
+  document.getElementById("totalDisplay").textContent = "R$ 0,00";
+  document.getElementById("repasseDisplay").style.display = "none";
+  document.getElementById("repasseDisplay").textContent = "Repassar: R$ 0,00";
+  
 }
 
 function acumularRepasse() {
