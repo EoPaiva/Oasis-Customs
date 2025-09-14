@@ -1,3 +1,6 @@
+let resumoServicosTotal = 0;
+let resumoVendasTotal = 0;
+
 // preços fixos
 const valores = {
   'full-blindagem': 93000,
@@ -44,11 +47,28 @@ let acumuladoRepasse = 0;
 // atualiza itens +-
 function updateItem(item, delta) {
   if (!(item in counters)) return;
+
+  // aplica mudança local (sessão atual)
   counters[item] += delta;
   if (counters[item] < 0) counters[item] = 0;
   document.getElementById(`cnt-${item}`).textContent = counters[item];
+
+  // atualiza histórico acumulado (não reseta)
+  if (item === "reparo" || item === "pneu") {
+    resumoServicosTotal += delta;
+    if (resumoServicosTotal < 0) resumoServicosTotal = 0;
+  } else {
+    resumoVendasTotal += delta;
+    if (resumoVendasTotal < 0) resumoVendasTotal = 0;
+  }
+
+  document.getElementById("resumoServicos").textContent = resumoServicosTotal;
+  document.getElementById("resumoVendas").textContent = resumoVendasTotal;
+
   updateAll();
 }
+
+
 
 // calcula total
 function updateAll() {
@@ -113,17 +133,14 @@ function updateAll() {
   }
 
   // painel resumo (NÃO mostra o repasse acumulado aqui para não resetar)
-  const totalServicos = counters.reparo + counters.pneu;
-  const totalVendas = counters.nitro + counters.chave + counters.reparoVend + counters.pneuVend;
   const descontoTxt = parceria ? "30%" : "0%";
 
-  document.getElementById("resumoServicos").textContent = totalServicos;
-  document.getElementById("resumoVendas").textContent = totalVendas;
   document.getElementById("resumoDesconto").textContent = descontoTxt;
 }
 
 // resetar calculadora (não mexe no resumo nem no repasse acumulado)
 function resetAll() {
+  // limpa calculadora mas mantém histórico do resumo
   for (const id in valores) {
     const el = document.getElementById(id);
     if (el) el.checked = false;
@@ -158,7 +175,6 @@ function resetAll() {
   repasseDiv.style.display = "none";
   repasseDiv.textContent = "Repassar: R$ 0,00";
 
-  // ⚠️ NÃO mexemos no acumulado nem no painel resumo aqui!
   updateAll();
 }
 
