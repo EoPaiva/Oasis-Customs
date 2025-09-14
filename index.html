@@ -1,127 +1,305 @@
-<html lang="pt-BR">
+<!DOCTYPE html>
+<html lang="pt-br">
+
 <head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Oasis Tuning - Calculadora</title>
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Tunagem</title>
+
+  <!-- Fonte Orbitron -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: 'Orbitron', sans-serif;
+      background:
+        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+        /* camada preta transparente */
+        url('fundo-desfocado.jpg') center center no-repeat fixed;
+      background-size: cover;
+      color: white;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+
+    .app-container {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      /* 5 colunas lado a lado */
+      gap: 15px;
+      width: 95%;
+      align-items: start;
+      /* <<< força os containers a se alinhar no topo */
+    }
+
+    .box {
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #4285F4;
+      border-radius: 10px;
+      box-shadow: 0 0 15px #4285F4;
+      padding: 12px;
+      font-size: 0.85rem;
+      height: auto;
+      /* <<< altura mínima, só o conteúdo */
+      max-height: none;
+      /* sem limitar */
+      overflow: visible;
+      /* sem scroll interno */
+    }
+
+    h2 {
+      font-size: 1.3rem;
+      color: #e5b0ff;
+      text-shadow: 0 0 10px #4285F4;
+      margin-bottom: 12px;
+      border-bottom: 1px solid #4285F4;
+      padding-bottom: 6px;
+    }
+
+    label,
+    .item-row {
+      display: block;
+      margin: 6px 0;
+      font-size: 0.95rem;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    select,
+    input[type=range] {
+      width: 100%;
+      margin: 4px 0;
+      border-radius: 6px;
+      background: #1c1c1c;
+      color: white;
+      border: 1px solid #4285F4;
+      padding: 4px;
+    }
+
+    input[type=checkbox] {
+      transform: scale(1.1);
+      margin-right: 6px;
+    }
+
+    .btn {
+      padding: 4px 10px;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn.plus {
+      background: #00ff88;
+      color: black;
+    }
+
+    .btn.plus:hover {
+      box-shadow: 0 0 10px #00ff88;
+    }
+
+    .btn.minus {
+      background: #ff0055;
+      color: white;
+    }
+
+    .btn.minus:hover {
+      box-shadow: 0 0 10px #ff0055;
+    }
+
+    .total-value {
+      font-size: 1.6rem;
+      text-align: center;
+      margin-top: 10px;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        text-shadow: 0 0 8px #4285F4;
+      }
+
+      50% {
+        text-shadow: 0 0 18px #4285F4;
+      }
+    }
+
+    .reset-btn {
+      background: #174EA6;
+      border: none;
+      padding: 8px 14px;
+      color: white;
+      border-radius: 8px;
+      margin-top: 12px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .reset-btn:hover {
+      box-shadow: 0 0 10px #174EA6;
+    }
+  </style>
 </head>
+
 <body>
-  <div class="logo-overlay"></div>
-  <div class="container-horizontal">
+  <div class="app-container">
+    <!-- Tunagem -->
     <section class="box" id="tunagem">
       <h2>🚀 Tunagem</h2>
-      <label><input type="checkbox" id="full-sem"/> Full tuning sem blindagem R$ 68 000</label>
-      <label><input type="checkbox" id="full-blindagem"/> Full tuning com blindagem R$ 85 000</label>
+      <label><input type="checkbox" id="full-sem"> Full sem blindagem R$ 68.000</label>
+      <label><input type="checkbox" id="full-blindagem"> Full com blindagem R$ 93.000</label>
       <label>Motor:
-        <select id="sel-motor"><option value="0">Nenhum</option><option value="11000">11 000</option><option value="12000">12 000</option><option value="14000">14 000</option><option value="15000">15 000</option></select>
+        <select id="sel-motor">
+          <option value="0">Nenhum</option>
+          <option value="7000">7000</option>
+          <option value="9200">9200</option>
+          <option value="10000">10000</option>
+          <option value="13500">13500</option>
+          <option value="17700">17700</option>
+        </select>
       </label>
       <label>Freio:
-        <select id="sel-freio"><option value="0">Nenhum</option><option value="11000">11 000</option><option value="12000">12 000</option><option value="14000">14 000</option><option value="15000">15 000</option></select>
+        <select id="sel-freio">
+          <option value="0">Nenhum</option>
+          <option value="7000">7000</option>
+          <option value="9200">9200</option>
+          <option value="10000">10000</option>
+          <option value="13700">13700</option>
+          <option value="17700">17700</option>
+        </select>
       </label>
       <label>Transmissão:
-        <select id="sel-transmissao"><option value="0">Nenhum</option><option value="11000">11 000</option><option value="12000">12 000</option><option value="14000">14 000</option><option value="15000">15 000</option></select>
+        <select id="sel-transmissao">
+          <option value="0">Nenhum</option>
+          <option value="7000">7000</option>
+          <option value="9200">9200</option>
+          <option value="10000">10000</option>
+          <option value="13700">13700</option>
+          <option value="17700">17700</option>
+        </select>
       </label>
       <label>Suspensão:
-        <select id="sel-suspensao"><option value="0">Nenhum</option><option value="10000">10 000</option><option value="11000">11 000</option><option value="12000">12 000</option><option value="13000">13 000</option></select>
+        <select id="sel-suspensao">
+          <option value="0">Nenhum</option>
+          <option value="9700">9700</option>
+          <option value="11200">11200</option>
+          <option value="16000">16000</option>
+          <option value="21200">21200</option>
+          <option value="26200">26200</option>
+        </select>
       </label>
       <label>Blindagem:
-        <select id="sel-blindagem"><option value="0">Nenhum</option><option value="14000">14 000</option><option value="15000">15 000</option><option value="16000">16 000</option><option value="17000">17 000</option></select>
+        <select id="sel-blindagem">
+          <option value="0">Nenhum</option>
+          <option value="14000">14000</option>
+          <option value="15000">15000</option>
+          <option value="16000">16000</option>
+          <option value="17000">17000</option>
+        </select>
       </label>
-      <label><input type="checkbox" id="chk-turbo"/> Turbo R$ 10 000</label>
+      <label><input type="checkbox" id="chk-turbo"> Turbo R$ 5700</label>
     </section>
 
+    <!-- Modificações -->
     <section class="box" id="modificacoes">
       <h2>✨ Modificações</h2>
-      <label>Cosmetic (R$ 1 200): <input type="range" id="rng-cosmetic" min="0" max="10" value="0"><span id="val-cosmetic">0</span></label>
-      <label>Respray (R$ 1 000): <input type="range" id="rng-respray" min="0" max="10" value="0"><span id="val-respray">0</span></label>
-      <label>Neon Side (R$ 700): <input type="range" id="rng-neon" min="0" max="10" value="0"><span id="val-neon">0</span></label>
-      <br/>
-      <label><input type="checkbox" id="chk-whells"/> WHELLS R$ 2 500</label>
-      <label><input type="checkbox" id="chk-customw"/> CUSTOM WHELLS</label>
-      <span class="subitem">R$ 1 000</span>
-      <label><input type="checkbox" id="chk-smoke"/> WHELL SMOKE</label>
-      <span class="subitem">R$ 700</span>
-      <label><input type="checkbox" id="chk-tint"/> WINDOW TINT R$ 700</label>
-      <label><input type="checkbox" id="chk-neoncol"/> NEON COLORS R$ 700</label>
-      <label><input type="checkbox" id="chk-head"/> HEADLIGHTS R$ 700</label>
-      <label><input type="checkbox" id="chk-xenon"/> XENON COLORS R$ 700</label>
-      <label><input type="checkbox" id="chk-livery"/> POLICE LIVERY R$ 300</label>
-      <label><input type="checkbox" id="chk-plate"/> PLATE INDEX R$ 850</label>
+      <label>Cosmetic (R$1200): <input type="range" id="rng-cosmetic" min="0" max="10" value="0"><span
+          id="val-cosmetic">0</span></label>
+      <label>Respray (R$1400): <input type="range" id="rng-respray" min="0" max="10" value="0"><span
+          id="val-respray">0</span></label>
+      <label>Neon Side (R$950): <input type="range" id="rng-neon" min="0" max="10" value="0"><span
+          id="val-neon">0</span></label>
+      <label><input type="checkbox" id="chk-whells"> Wheels R$3200</label>
+      <label><input type="checkbox" id="chk-customw"> Custom Wheels R$1400</label>
+      <label><input type="checkbox" id="chk-smoke"> Wheel Smoke R$950</label>
+      <label><input type="checkbox" id="chk-tint"> Window Tint R$950</label>
+      <label><input type="checkbox" id="chk-neoncol"> Neon Colors R$950</label>
+      <label><input type="checkbox" id="chk-head"> Headlights R$950</label>
+      <label><input type="checkbox" id="chk-xenon"> Xenon Colors R$950</label>
+      <label><input type="checkbox" id="chk-livery"> Police Livery R$300</label>
+      <label><input type="checkbox" id="chk-plate"> Plate Index R$2200</label>
     </section>
 
+    <!-- Serviços -->
     <section class="box" id="servicos">
       <h2>🔧 Serviços Internos</h2>
-      <div class="item-row">
+      <div class="item-row">Reparo (R$300):
         <button class="btn plus" onclick="updateItem('reparo',1)">+1</button>
-        <button class="btn plus" onclick="updateItem('reparo',4)">+4</button>
-        <button class="btn minus" onclick="updateItem('reparo',-1)">−1</button>
-        <button class="btn minus" onclick="updateItem('reparo',-4)">−4</button>
-        Reparo (R$ 550): <span id="cnt-reparo">0</span>
+        <button class="btn minus" onclick="updateItem('reparo',-1)">-1</button>
+        <span id="cnt-reparo">0</span>
       </div>
-      <div class="item-row">
+      <div class="item-row">Pneu (R$125):
         <button class="btn plus" onclick="updateItem('pneu',1)">+1</button>
-        <button class="btn plus" onclick="updateItem('pneu',4)">+4</button>
-        <button class="btn minus" onclick="updateItem('pneu',-1)">−1</button>
-        <button class="btn minus" onclick="updateItem('pneu',-4)">−4</button>
-        Pneu (R$ 450): <span id="cnt-pneu">0</span>
+        <button class="btn minus" onclick="updateItem('pneu',-1)">-1</button>
+        <span id="cnt-pneu">0</span>
       </div>
-      <label><input type="checkbox" id="chk-externo"/> Atendimento Externo R$ 700</label>
-      <label><input type="checkbox" id="chk-kitdrift"> Kit Drift <span>R$ 15.000</span></label>
-      <label><input type="checkbox" id="chk-rastreador"> Rastreador <span>R$ 15.000</span></label>
+      <label><input type="checkbox" id="chk-externoSul"> Atendimento Externo (Sul) R$700</label>
+      <label><input type="checkbox" id="chk-externoNorte"> Atendimento Externo (Norte) R$1200</label>
+      <label><input type="checkbox" id="chk-kitdrift"> Kit Drift R$12.500</label>
+      <label><input type="checkbox" id="chk-rastreador"> Rastreador R$12.500</label>
     </section>
 
+    <!-- Vendas -->
     <section class="box" id="vendas">
       <h2>📦 Vendas</h2>
-      <label><input type="checkbox" id="chk-parceria"/> Desconto Parceria (30%)</label>
-      <div class="item-row">
-        Nitro (R$ 8 000):
-        <button class="btn plus" onclick="updateItem('nitro',1)">+1</button><button class="btn plus" onclick="updateItem('nitro',5)">+5</button>
-        <button class="btn minus" onclick="updateItem('nitro',-1)">−1</button><button class="btn minus" onclick="updateItem('nitro',-5)">−5</button>
+      <label><input type="checkbox" id="chk-parceria"> Desconto Parceria (30%)</label>
+      <div class="item-row">Nitro (R$7500):
+        <button class="btn plus" onclick="updateItem('nitro',1)">+1</button>
+        <button class="btn plus" onclick="updateItem('nitro',5)">+5</button>
+        <button class="btn minus" onclick="updateItem('nitro',-1)">-1</button>
+        <button class="btn minus" onclick="updateItem('nitro',-5)">-5</button>
         <span id="cnt-nitro">0</span>
       </div>
-      <div class="item-row">
-        Venda Kit (R$ 650):
-        <button class="btn plus" onclick="updateItem('kit',1)">+1</button><button class="btn plus" onclick="updateItem('kit',5)">+5</button>
-        <button class="btn plus" onclick="updateItem('kit',25)">+25</button><button class="btn plus" onclick="updateItem('kit',50)">+50</button>
-        <button class="btn minus" onclick="updateItem('kit',-1)">−1</button><button class="btn minus" onclick="updateItem('kit',-5)">−5</button>
-        <button class="btn minus" onclick="updateItem('kit',-25)">−25</button><button class="btn minus" onclick="updateItem('kit',-50)">−50</button>
-        <span id="cnt-kit">0</span>
-      </div>
-      <div class="item-row">
-        Venda Pneu (R$ 475):
-        <button class="btn plus" onclick="updateItem('pneuVend',1)">+1</button><button class="btn plus" onclick="updateItem('pneuVend',5)">+5</button>
-        <button class="btn plus" onclick="updateItem('pneuVend',25)">+25</button><button class="btn plus" onclick="updateItem('pneuVend',50)">+50</button>
-        <button class="btn minus" onclick="updateItem('pneuVend',-1)">−1</button><button class="btn minus" onclick="updateItem('pneuVend',-5)">−5</button>
-        <button class="btn minus" onclick="updateItem('pneuVend',-25)">−25</button><button class="btn minus" onclick="updateItem('pneuVend',-50)">−50</button>
-        <span id="cnt-pneuVend">0</span>
-      </div>
-      <div class="item-row">
-        Chave de Roda (R$ 500):
-        <button class="btn plus" onclick="updateItem('chave',1)">+1</button><button class="btn plus" onclick="updateItem('chave',5)">+5</button>
-        <button class="btn minus" onclick="updateItem('chave',-1)">−1</button><button class="btn minus" onclick="updateItem('chave',-5)">−5</button>
-        <span id="cnt-chave">0</span>
-      </div>
-    </section>
 
+<div class="item-row">Chave de Roda (R$700):
+  <button class="btn plus" onclick="updateItem('chave',1)">+1</button>
+  <button class="btn plus" onclick="updateItem('chave',5)">+5</button>
+  <button class="btn minus" onclick="updateItem('chave',-1)">-1</button>
+  <button class="btn minus" onclick="updateItem('chave',-5)">-5</button>
+  <span id="cnt-chave">0</span>
+</div>
+
+<div class="item-row">Reparo (R$300):
+  <button class="btn plus" onclick="updateItem('reparo',1)">+1</button>
+  <button class="btn plus" onclick="updateItem('reparo',5)">+5</button>
+  <button class="btn minus" onclick="updateItem('reparo',-1)">-1</button>
+  <button class="btn minus" onclick="updateItem('reparo',-5)">-5</button>
+  <span id="cnt-reparo">0</span>
+</div>
+
+<div class="item-row">Pneu (R$125):
+  <button class="btn plus" onclick="updateItem('pneu',1)">+1</button>
+  <button class="btn plus" onclick="updateItem('pneu',5)">+5</button>
+  <button class="btn minus" onclick="updateItem('pneu',-1)">-1</button>
+  <button class="btn minus" onclick="updateItem('pneu',-5)">-5</button>
+  <span id="cnt-pneu">0</span>
+</div>
+</section></section:>
+
+    <!-- Total -->
     <section class="box" id="total">
       <h2>💲 Valor Total</h2>
-      <div class="total-value" id="totalDisplay">R$ 0,00</div>
-
-      <label style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-        <input type="checkbox" id="chk-repasse"/>
-        Mostrar valor de repasse (10%)
-      </label>
-
-      <div class="total-value" id="repasseDisplay" style="display: none;">
-        Repassar (10% sobre vendas): R$ 0,00
-      </div>
-
+      <div class="total-value" id="totalDisplay">R$ 0,00</div>
+      <label><input type="checkbox" id="chk-repasse"> Mostrar repasse (10%)</label>
+      <div class="total-value" id="repasseDisplay" style="display:none;">Repassar: R$ 0,00</div>
       <button class="reset-btn" onclick="acumularRepasse()">➕ Adicionar ao repasse</button>
-      <div class="total-value" id="repasseAcumuladoDisplay">Acumulado de repasse: R$ 0,00</div>
-
+      <div class="total-value" id="repasseAcumuladoDisplay">Acumulado de repasse: R$ 0,00</div>
       <button class="reset-btn" onclick="resetAll()">Zerar Calculadora</button>
     </section>
   </div>
+
   <script src="script.js"></script>
 </body>
+
 </html>
