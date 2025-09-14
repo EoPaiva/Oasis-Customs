@@ -76,8 +76,8 @@ function updateAll() {
   total += document.getElementById("rng-neon").value * 950;
   document.getElementById("val-neon").textContent = document.getElementById("rng-neon").value;
 
-  total += counters.reparo * 550;
-  total += counters.pneu * 450;
+  total += counters.reparo * 300;
+  total += counters.pneu * 125;
 
   total += counters.nitro * 7500;
   total += counters.kit * (parceria ? 455 : 320);
