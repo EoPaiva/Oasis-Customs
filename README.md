@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🚀 Oasis Tuning - Calculadora de Serviços
 
 Uma calculadora interativa e estilizada para auxiliar no cálculo de serviços de tuning automotivo no estilo RP (Roleplay). Desenvolvida para uso por mecânicos, players e organizações no cenário do servidor Oasis RP.
@@ -44,3 +45,7 @@ Uma calculadora interativa e estilizada para auxiliar no cálculo de serviços d
 ├── style.css          # Estilos visuais
 ├── script.js          # Lógica de cálculo e interações
 └── README.md          # Este arquivo
+=======
+# Oasus-Customs
+Calculadora automatizada
+>>>>>>> eecb3c2ea24c1b3d465ac266ff532124d923800f
