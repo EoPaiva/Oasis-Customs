@@ -1,5 +1,5 @@
 const valores = {
-  'full-blindagem': 85000,
+  'full-blindagem': 93000,
   'full-sem': 68000,
   'chk-turbo': 5700,
   'chk-whells': 3200,
@@ -17,7 +17,7 @@ const valores = {
 };
 
 const custos = {
-  'full-blindagem': 85000,
+  'full-blindagem': 93000,
   'full-sem': 68000,
   'sel-motor': 7000,
   'sel-freio': 9200,
