@@ -23,7 +23,7 @@ const valores = {
 
 // preços unitários
 const PRECO = {
-  reparo: 300,
+  reparo: 320,
   pneu: 125,
   nitro: 7500,
   chave: 600,
