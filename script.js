@@ -71,9 +71,9 @@ function updateAll() {
 
   total += document.getElementById("rng-cosmetic").value * 1200;
   document.getElementById("val-cosmetic").textContent = document.getElementById("rng-cosmetic").value;
-  total += document.getElementById("rng-respray").value * 1000;
+  total += document.getElementById("rng-respray").value * 1400;
   document.getElementById("val-respray").textContent = document.getElementById("rng-respray").value;
-  total += document.getElementById("rng-neon").value * 700;
+  total += document.getElementById("rng-neon").value * 950;
   document.getElementById("val-neon").textContent = document.getElementById("rng-neon").value;
 
   total += counters.reparo * 550;
