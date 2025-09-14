@@ -44,3 +44,51 @@ Uma calculadora interativa e estilizada para auxiliar no cálculo de serviços d
 ├── style.css          # Estilos visuais
 ├── script.js          # Lógica de cálculo e interações
 └── README.md          # Este arquivo
+
+14/09/2025
+# 📜 Changelog – Calculadora de Tunagem e Serviços
+```diff
+
+### 🟢 Versão inicial
++ Estrutura HTML com seções de Tunagem, Modificações, Serviços Internos, Vendas e Total.
++ Script JS com updateAll() para calcular preços, aplicar desconto e mostrar repasse.
++ Sistema básico de botões `+` e `-` para contadores.
+
+### 🟡 Atualizações principais
+- IDs inconsistentes corrigidos (`chk-externoSul`, `chk-externoNorte`).
+- Valores de Reparo e Pneu ajustados para R$300 e R$125.
+- Atendimento externo passou a ser contabilizado corretamente.
+
++ Implementado desconto de parceria (30%) aplicado apenas em Vendas:
+  + Nitro, Chave, Reparo (Venda), Pneu (Venda).
+  - Serviços internos não têm desconto.
+
++ Repasse:
+  + Calculado como 10% sobre vendas.
+  + Botão ➕ Adicionar ao repasse acumula valores em `acumuladoRepasse`.
+  + Reset não zera mais o acumulado de repasse.
+
+### 🔵 Funcionalidades novas
++ Painel Resumo (📊) fixo no canto inferior direito:
+  + Serviços internos acumulados.
+  + Vendas acumuladas.
+  + Status do desconto.
+  + Repasse acumulado.
+
++ Histórico acumulado:
+  + Criadas variáveis globais `resumoServicosTotal` e `resumoVendasTotal`.
+  + Resumo atualizado em `updateItem()` e não mais sobrescrito em `updateAll()`.
+  - Reset não afeta mais os valores acumulados do resumo.
+
+### 🔴 Problemas resolvidos
+- Resumo não reseta mais ao zerar a calculadora.
+- Repasse acumulado não é mais sobrescrito ao atualizar a tela.
+- Desconto de parceria agora é aplicado corretamente.
+
+### 🚀 Próximos upgrades sugeridos
++ Botão "Zerar histórico" no painel resumo.
++ Histórico detalhado com timestamp.
++ Exportar resumo em `.txt` ou `.pdf`.
++ Alternar tema dark/light.
+```
+@everyone
