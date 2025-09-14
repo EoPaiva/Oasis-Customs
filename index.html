@@ -1,56 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Tunagem</title>
-
-  <!-- Fonte Orbitron -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-
   <style>
     body {
       margin: 0;
       min-height: 100vh;
       font-family: 'Orbitron', sans-serif;
-      background:
-        linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-        /* camada preta transparente */
-        url('fundo-desfocado.jpg') center center no-repeat fixed;
-      background-size: cover;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('fundo-desfocado.jpg') center/cover fixed;
       color: white;
       display: flex;
       justify-content: center;
       padding: 20px;
     }
-
-
     .app-container {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      /* 5 colunas lado a lado */
       gap: 15px;
       width: 95%;
       align-items: start;
-      /* <<< força os containers a se alinhar no topo */
     }
-
     .box {
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0,0,0,0.7);
       border: 2px solid #4285F4;
       border-radius: 10px;
       box-shadow: 0 0 15px #4285F4;
       padding: 12px;
       font-size: 0.85rem;
-      height: auto;
-      /* <<< altura mínima, só o conteúdo */
-      max-height: none;
-      /* sem limitar */
-      overflow: visible;
-      /* sem scroll interno */
     }
-
     h2 {
       font-size: 1.3rem;
       color: #e5b0ff;
@@ -59,22 +39,17 @@
       border-bottom: 1px solid #4285F4;
       padding-bottom: 6px;
     }
-
-    label,
-    .item-row {
+    label, .item-row {
       display: block;
       margin: 6px 0;
       font-size: 0.95rem;
     }
-
     .item-row {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-
-    select,
-    input[type=range] {
+    select, input[type=range] {
       width: 100%;
       margin: 4px 0;
       border-radius: 6px;
@@ -83,78 +58,71 @@
       border: 1px solid #4285F4;
       padding: 4px;
     }
-
     input[type=checkbox] {
       transform: scale(1.1);
       margin-right: 6px;
     }
-
     .btn {
       padding: 4px 10px;
       border: none;
       border-radius: 6px;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all .2s;
     }
-
-    .btn.plus {
-      background: #00ff88;
-      color: black;
-    }
-
-    .btn.plus:hover {
-      box-shadow: 0 0 10px #00ff88;
-    }
-
-    .btn.minus {
-      background: #ff0055;
-      color: white;
-    }
-
-    .btn.minus:hover {
-      box-shadow: 0 0 10px #ff0055;
-    }
-
+    .btn.plus { background:#4285F4; color:black; }
+    .btn.plus:hover { box-shadow:0 0 10px #4285F4; }
+    .btn.minus { background:#ff0055; color:white; }
+    .btn.minus:hover { box-shadow:0 0 10px #ff0055; }
     .total-value {
       font-size: 1.6rem;
       text-align: center;
       margin-top: 10px;
       animation: pulse 2s infinite;
     }
-
     @keyframes pulse {
-
-      0%,
-      100% {
-        text-shadow: 0 0 8px #4285F4;
-      }
-
-      50% {
-        text-shadow: 0 0 18px #4285F4;
-      }
+      0%,100% { text-shadow:0 0 8px #4285F4; }
+      50% { text-shadow:0 0 18px #4285F4; }
     }
-
     .reset-btn {
-      background: #174EA6;
-      border: none;
-      padding: 8px 14px;
-      color: white;
-      border-radius: 8px;
-      margin-top: 12px;
-      cursor: pointer;
-      width: 100%;
+      background:#174EA6;
+      border:none;
+      padding:8px 14px;
+      color:white;
+      border-radius:8px;
+      margin-top:12px;
+      cursor:pointer;
+      width:100%;
     }
+    .reset-btn:hover { box-shadow:0 0 10px #174EA6; }
 
-    .reset-btn:hover {
-      box-shadow: 0 0 10px #174EA6;
+    /* Painel resumo */
+    #resumoBox {
+      position: fixed;
+      bottom: 15px;
+      right: 15px;
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #00ff88;
+      box-shadow: 0 0 15px #00ff88;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      z-index: 9999;
+      width: 230px;
     }
+    #resumoBox h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.1rem;
+      color: #00ff88;
+      text-align: center;
+      text-shadow: 0 0 8px #00ff88;
+    }
+    #resumoBox p { margin: 5px 0; }
   </style>
 </head>
-
 <body>
   <div class="app-container">
-    <!-- Tunagem -->
+    <!-- 🚀 Tunagem -->
     <section class="box" id="tunagem">
       <h2>🚀 Tunagem</h2>
       <label><input type="checkbox" id="full-sem"> Full sem blindagem R$ 68.800</label>
@@ -176,7 +144,6 @@
           <option value="9200">9200</option>
           <option value="10000">10000</option>
           <option value="13700">13700</option>
-
         </select>
       </label>
       <label>Transmissão:
@@ -212,15 +179,12 @@
       <label><input type="checkbox" id="chk-turbo"> Turbo R$ 5700</label>
     </section>
 
-    <!-- Modificações -->
+    <!-- ✨ Modificações -->
     <section class="box" id="modificacoes">
       <h2>✨ Modificações</h2>
-      <label>Cosmetic (R$1200): <input type="range" id="rng-cosmetic" min="0" max="10" value="0"><span
-          id="val-cosmetic">0</span></label>
-      <label>Respray (R$1400): <input type="range" id="rng-respray" min="0" max="10" value="0"><span
-          id="val-respray">0</span></label>
-      <label>Neon Side (R$950): <input type="range" id="rng-neon" min="0" max="10" value="0"><span
-          id="val-neon">0</span></label>
+      <label>Cosmetic (R$1200): <input type="range" id="rng-cosmetic" min="0" max="10" value="0"><span id="val-cosmetic">0</span></label>
+      <label>Respray (R$1400): <input type="range" id="rng-respray" min="0" max="10" value="0"><span id="val-respray">0</span></label>
+      <label>Neon Side (R$950): <input type="range" id="rng-neon" min="0" max="10" value="0"><span id="val-neon">0</span></label>
       <label><input type="checkbox" id="chk-whells"> Rodas R$3200</label>
       <label><input type="checkbox" id="chk-customw"> Rodas Custumizadas R$1400</label>
       <label><input type="checkbox" id="chk-smoke"> Fumaça da roda R$950</label>
@@ -232,7 +196,7 @@
       <label><input type="checkbox" id="chk-plate"> Placa Personalizada R$2200</label>
     </section>
 
-    <!-- Serviços -->
+    <!-- 🔧 Serviços -->
     <section class="box" id="servicos">
       <h2>🔧 Serviços Internos</h2>
       <div class="item-row">Reparo (R$300):
@@ -251,10 +215,11 @@
       <label><input type="checkbox" id="chk-rastreador"> Rastreador R$12.500</label>
     </section>
 
-    <!-- Vendas -->
+    <!-- 📦 Vendas -->
     <section class="box" id="vendas">
       <h2>📦 Vendas</h2>
       <label><input type="checkbox" id="chk-parceria"> Desconto Parceria (30%)</label>
+
       <div class="item-row">Nitro (R$7500):
         <button class="btn plus" onclick="updateItem('nitro',1)">+1</button>
         <button class="btn plus" onclick="updateItem('nitro',5)">+5</button>
@@ -263,32 +228,32 @@
         <span id="cnt-nitro">0</span>
       </div>
 
-<div class="item-row">Chave de Roda (R$600):
-  <button class="btn plus" onclick="updateItem('chave',1)">+1</button>
-  <button class="btn plus" onclick="updateItem('chave',5)">+5</button>
-  <button class="btn minus" onclick="updateItem('chave',-1)">-1</button>
-  <button class="btn minus" onclick="updateItem('chave',-5)">-5</button>
-  <span id="cnt-chave">0</span>
-</div>
+      <div class="item-row">Chave de Roda (R$600):
+        <button class="btn plus" onclick="updateItem('chave',1)">+1</button>
+        <button class="btn plus" onclick="updateItem('chave',5)">+5</button>
+        <button class="btn minus" onclick="updateItem('chave',-1)">-1</button>
+        <button class="btn minus" onclick="updateItem('chave',-5)">-5</button>
+        <span id="cnt-chave">0</span>
+      </div>
 
-<div class="item-row">Reparo (R$300):
-  <button class="btn plus" onclick="updateItem('reparo',1)">+1</button>
-  <button class="btn plus" onclick="updateItem('reparo',5)">+5</button>
-  <button class="btn minus" onclick="updateItem('reparo',-1)">-1</button>
-  <button class="btn minus" onclick="updateItem('reparo',-5)">-5</button>
-  <span id="cnt-reparo">0</span>
-</div>
+      <div class="item-row">Reparo (Venda) (R$300):
+        <button class="btn plus" onclick="updateItem('reparoVend',1)">+1</button>
+        <button class="btn plus" onclick="updateItem('reparoVend',5)">+5</button>
+        <button class="btn minus" onclick="updateItem('reparoVend',-1)">-1</button>
+        <button class="btn minus" onclick="updateItem('reparoVend',-5)">-5</button>
+        <span id="cnt-reparoVend">0</span>
+      </div>
 
-<div class="item-row">Pneu (R$125):
-  <button class="btn plus" onclick="updateItem('pneu',1)">+1</button>
-  <button class="btn plus" onclick="updateItem('pneu',5)">+5</button>
-  <button class="btn minus" onclick="updateItem('pneu',-1)">-1</button>
-  <button class="btn minus" onclick="updateItem('pneu',-5)">-5</button>
-  <span id="cnt-pneu">0</span>
-</div>
-</section></section:>
+      <div class="item-row">Pneu (Venda) (R$125):
+        <button class="btn plus" onclick="updateItem('pneuVend',1)">+1</button>
+        <button class="btn plus" onclick="updateItem('pneuVend',5)">+5</button>
+        <button class="btn minus" onclick="updateItem('pneuVend',-1)">-1</button>
+        <button class="btn minus" onclick="updateItem('pneuVend',-5)">-5</button>
+        <span id="cnt-pneuVend">0</span>
+      </div>
+    </section>
 
-    <!-- Total -->
+    <!-- 💲 Total -->
     <section class="box" id="total">
       <h2>💲 Valor Total</h2>
       <div class="total-value" id="totalDisplay">R$ 0,00</div>
@@ -300,7 +265,15 @@
     </section>
   </div>
 
+  <!-- 📊 Painel Resumo -->
+  <div id="resumoBox">
+    <h3>📊 Resumo</h3>
+    <p><b>Serviços internos:</b> <span id="resumoServicos">0</span></p>
+    <p><b>Vendas:</b> <span id="resumoVendas">0</span></p>
+    <p><b>Desconto aplicado:</b> <span id="resumoDesconto">0%</span></p>
+    <p><b>Repasse acumulado:</b> <span id="resumoRepasse">R$ 0,00</span></p>
+  </div>
+
   <script src="script.js"></script>
 </body>
-
 </html>
