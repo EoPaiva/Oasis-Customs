@@ -13,7 +13,9 @@ const valores = {
   'chk-plate': 2200,
   'chk-externo': 700,
   'chk-kitdrift': 12500,
-  'chk-rastreador': 12500
+  'chk-rastreador': 12500,
+  'chk-reparo': 300,
+  'chk-pneu': 125
 };
 
 const custos = {
