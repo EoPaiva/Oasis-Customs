@@ -5,124 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Calculadora de Tunagem</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('fundo-desfocado.jpg') center/cover fixed;
-      color: white;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
-    .app-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 15px;
-      width: 95%;
-      align-items: start;
-    }
-    .box {
-      background: rgba(0,0,0,0.7);
-      border: 2px solid #4285F4;
-      border-radius: 10px;
-      box-shadow: 0 0 15px #4285F4;
-      padding: 12px;
-      font-size: 0.85rem;
-    }
-    h2 {
-      font-size: 1.3rem;
-      color: #D2E3FC;
-      text-shadow: 0 0 10px #4285F4;
-      margin-bottom: 12px;
-      border-bottom: 1px solid #4285F4;
-      padding-bottom: 6px;
-    }
-    label, .item-row {
-      display: block;
-      margin: 6px 0;
-      font-size: 0.95rem;
-    }
-    .item-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    select, input[type=range] {
-      width: 100%;
-      margin: 4px 0;
-      border-radius: 6px;
-      background: #1c1c1c;
-      color: white;
-      border: 1px solid #4285F4;
-      padding: 4px;
-    }
-    input[type=checkbox] {
-      transform: scale(1.1);
-      margin-right: 6px;
-    }
-    .btn {
-      padding: 4px 10px;
-      border: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .btn.plus { background:#4285F4; color:black; }
-    .btn.plus:hover { box-shadow:0 0 10px #4285F4; }
-    .btn.minus { background:#ff0055; color:white; }
-    .btn.minus:hover { box-shadow:0 0 10px #ff0055; }
-    .total-value {
-      font-size: 1.6rem;
-      text-align: center;
-      margin-top: 10px;
-      animation: pulse 2s infinite;
-    }
-    @keyframes pulse {
-      0%,100% { text-shadow:0 0 8px #4285F4; }
-      50% { text-shadow:0 0 18px #4285F4; }
-    }
-    .reset-btn {
-      background:#174EA6;
-      border:none;
-      padding:8px 14px;
-      color:white;
-      border-radius:8px;
-      margin-top:12px;
-      cursor:pointer;
-      width:100%;
-    }
-    .reset-btn:hover { box-shadow:0 0 10px #174EA6; }
-
-    /* Painel resumo */
-    #resumoBox {
-      position: fixed;
-      bottom: 15px;
-      right: 15px;
-      background: rgba(0, 0, 0, 0.85);
-      border: 2px solid #4285F4;
-      box-shadow: 0 0 15px #4285F4;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-size: 0.9rem;
-      z-index: 9999;
-      width: 230px;
-    }
-    #resumoBox h3 {
-      margin: 0 0 10px 0;
-      font-size: 1.1rem;
-      color: #4285F4;
-      text-align: center;
-      text-shadow: 0 0 8px #4285F4;
-    }
-    #resumoBox p { margin: 5px 0; }
-  </style>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <div class="app-container">
-    <!-- 🚀 Tunagem -->
     <section class="box" id="tunagem">
       <h2>🚀 Tunagem</h2>
       <label><input type="checkbox" id="full-sem"> Full sem blindagem R$ 68.800</label>
@@ -179,7 +66,6 @@
       <label><input type="checkbox" id="chk-turbo"> Turbo R$ 5700</label>
     </section>
 
-    <!-- ✨ Modificações -->
     <section class="box" id="modificacoes">
       <h2>✨ Modificações</h2>
       <label>Cosmetic (R$1200): <input type="range" id="rng-cosmetic" min="0" max="10" value="0"><span id="val-cosmetic">0</span></label>
@@ -196,7 +82,6 @@
       <label><input type="checkbox" id="chk-plate"> Placa Personalizada R$2200</label>
     </section>
 
-    <!-- 🔧 Serviços -->
     <section class="box" id="servicos">
       <h2>🔧 Serviços Internos</h2>
       <div class="item-row">Reparo (R$300):
@@ -215,7 +100,6 @@
       <label><input type="checkbox" id="chk-rastreador"> Rastreador R$12.500</label>
     </section>
 
-    <!-- 📦 Vendas -->
     <section class="box" id="vendas">
       <h2>📦 Vendas</h2>
       <label><input type="checkbox" id="chk-parceria"> Desconto Parceria (30%)</label>
@@ -253,26 +137,31 @@
       </div>
     </section>
 
-    <!-- 💲 Total -->
     <section class="box" id="total">
       <h2>💲 Valor Total</h2>
       <div class="total-value" id="totalDisplay">R$ 0,00</div>
       <label><input type="checkbox" id="chk-repasse"> Mostrar repasse (10%)</label>
       <div class="total-value" id="repasseDisplay" style="display:none;">Repassar: R$ 0,00</div>
-      <button class="reset-btn" onclick="acumularRepasse()">➕ Adicionar ao repasse</button>
+      <button class="reset-btn" onclick="acumularRepasse()">➕ Finalizar e Acumular</button>
       <div class="total-value" id="repasseAcumuladoDisplay">Acumulado de repasse: R$ 0,00</div>
       <button class="reset-btn" onclick="resetAll()">Zerar Calculadora</button>
     </section>
   </div>
 
-  <!-- 📊 Painel Resumo -->
-  <div id="resumoBox">
-    <h3>📊 Resumo</h3>
-    <p><b>Serviços internos:</b> <span id="resumoServicos">0</span></p>
-    <p><b>Vendas:</b> <span id="resumoVendas">0</span></p>
-    <p><b>Desconto aplicado:</b> <span id="resumoDesconto">0%</span></p>
-    <p><b>Repasse acumulado:</b> <span id="resumoRepasse">R$ 0,00</span></p>
+  <div id="summary-container">
+    <div id="resumoBox">
+      <h3>📊 Resumo</h3>
+      <p><b>Serviços internos:</b> <span id="resumoServicos">0</span></p>
+      <p><b>Vendas:</b> <span id="resumoVendas">0</span></p>
+      <p><b>Desconto aplicado:</b> <span id="resumoDesconto">0%</span></p>
+      <p><b>Repasse acumulado:</b> <span id="resumoRepasse">R$ 0,00</span></p>
+    </div>
+    <div id="chartBox">
+        <h3>📈 Receita Acumulada</h3>
+        <canvas id="incomeChart"></canvas>
+    </div>
   </div>
+
 
   <script src="script.js"></script>
 </body>
