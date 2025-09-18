@@ -23,7 +23,7 @@ Uma calculadora interativa e estilizada para auxiliar no cálculo de serviços d
 
 ## 🖼️ Preview
 
-![Preview](https://imgur.com/hbC6dVh.png)
+![Preview](https://imgur.com/gOLrcPj.png)
 
 ---
 
