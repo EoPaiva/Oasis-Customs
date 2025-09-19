@@ -130,7 +130,7 @@ function acumularRepasse() {
   };
 
   // Mude 'http://localhost:5000' para o IP do seu servidor de hospedagem
-  fetch('http://localhost:5000/api/venda', {
+  fetch('http://upaiva.discloud.app:8080', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(dadosDaVenda)
