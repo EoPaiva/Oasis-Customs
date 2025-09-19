@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Orbitron', sans-serif;
+  background: url('fundo-desfocado.jpg') center/cover no-repeat fixed;
+  color: white;
+  overflow-x: hidden;
+  padding-bottom: 250px; /* Adiciona espaço no final para não sobrepor o resumo */
+}
+
+.logo-overlay {
+  position: fixed;
+  top:50%; left:50%;
+  transform:translate(-50%, -50%);
+  background: url('logo-oasis.png') center/40% no-repeat;
+  opacity: 0.05;
+  width:100%; height:100%;
+  z-index: -1;
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  width: 95%;
+  max-width: 1800px;
+  margin: 0 auto;
+  align-items: start;
+}
+
+.box {
+  background: rgba(0,0,0,0.7);
+  border: 2px solid #4285F4;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #4285F4;
+  padding: 12px;
+  font-size: 0.85rem;
+}
+
+h2 {
+  font-size: 1.3rem;
+  color: #D2E3FC;
+  text-shadow: 0 0 10px #4285F4;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #4285F4;
+  padding-bottom: 6px;
+}
+label, .item-row {
+  display: block;
+  margin: 6px 0;
+  font-size: 0.95rem;
+}
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+select, input[type=range] {
+  width: 100%;
+  margin: 4px 0;
+  border-radius: 6px;
+  background: #1c1c1c;
+  color: white;
+  border: 1px solid #4285F4;
+  padding: 4px;
+}
+input[type=checkbox] {
+  transform: scale(1.1);
+  margin-right: 6px;
+}
+.btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all .2s;
+}
+.btn.plus { background:#4285F4; color:black; }
+.btn.plus:hover { box-shadow:0 0 10px #4285F4; }
+.btn.minus { background:#ff0055; color:white; }
+.btn.minus:hover { box-shadow:0 0 10px #ff0055; }
+.total-value {
+  font-size: 1.6rem;
+  text-align: center;
+  margin-top: 10px;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%,100% { text-shadow:0 0 8px #4285F4; }
+  50% { text-shadow:0 0 18px #4285F4; }
+}
+.reset-btn {
+  background:#174EA6;
+  border:none;
+  padding:8px 14px;
+  color:white;
+  border-radius:8px;
+  margin-top:12px;
+  cursor:pointer;
+  width:100%;
+  transition: all .2s;
+}
+.reset-btn:hover { box-shadow:0 0 10px #174EA6; }
+
+/* --- NOVO: Container para o painel de resumo e o gráfico --- */
+#summary-container {
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  gap: 15px;
+  align-items: flex-end; /* Alinha na base */
+  z-index: 9999;
+}
+
+#resumoBox {
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #4285F4;
+  box-shadow: 0 0 15px #4285F4;
+  padding: 12px 18px;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  width: 230px;
+}
+#resumoBox h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: #4285F4;
+  text-align: center;
+  text-shadow: 0 0 8px #4285F4;
+}
+#resumoBox p { margin: 5px 0; }
+
+/* --- NOVO: Estilo para a caixa do gráfico --- */
+#chartBox {
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #4285F4;
+  box-shadow: 0 0 15px #4285F4;
+  padding: 12px 18px;
+  border-radius: 12px;
+  width: 280px;
+  font-size: 0.9rem;
+}
+
+#chartBox h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  color: #4285F4;
+  text-align: center;
+  text-shadow: 0 0 8px #4285F4;
+}
