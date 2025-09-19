@@ -118,33 +118,7 @@ function acumularRepasse() {
   valorVendasDaTransacao += Number(document.getElementById("rng-cosmetic")?.value || 0) * PRECO.cosmeticUnit;
   valorVendasDaTransacao += Number(document.getElementById("rng-respray")?.value || 0) * PRECO.resprayUnit;
   valorVendasDaTransacao += Number(document.getElementById("rng-neon")?.value || 0) * PRECO.neonUnit;
-  
-  const precoTotalTransacao = valorServicosDaTransacao + valorVendasDaTransacao;
 
-  // --- NOVA LÓGICA DE ENVIO ---
-  const dadosDaVenda = {
-      vendedorNome: "Oasis Customs", // Você pode tornar isso dinâmico depois
-      itemVendido: "Combo de Tunagem/Serviços",
-      quantidade: 1,
-      precoTotal: precoTotalTransacao
-  };
-
-  // Mude 'http://localhost:5000' para o IP do seu servidor de hospedagem
-  fetch('http://upaiva.discloud.app:8080', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(dadosDaVenda)
-  })
-  .then(response => response.json())
-  .then(data => {
-      console.log('API Response:', data);
-      alert('Venda registrada com sucesso!');
-  })
-  .catch(error => {
-      console.error('API Error:', error);
-      alert('ERRO: Não foi possível registrar a venda.');
-  });
-  // --- FIM DA NOVA LÓGICA ---
 
   acumuladoServicosValor += valorServicosDaTransacao;
   acumuladoVendasValor += valorVendasDaTransacao;
